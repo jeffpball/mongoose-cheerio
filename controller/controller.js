@@ -13,17 +13,19 @@ router.get("/", function(req, res) {
 });
 
 router.get("/scrape", function(req, res) {
-  request("http://www.theverge.com", function(error, response, html) {
+  request("http://www.thenewstribune.com", function(error, response, html) {
     var $ = cheerio.load(html);
     var titlesArray = [];
 
-    $(".c-entry-box--compact__title").each(function(i, element) {
+    $(".package").each(function(i, element) {
       var result = {};
 
       result.title = $(this)
+        .children("h3")
         .children("a")
         .text();
       result.link = $(this)
+        .children("h3")
         .children("a")
         .attr("href");
 
